@@ -10,7 +10,7 @@ pipeline {
         stage('Multi-tool operations') {
             steps {
                 multiToolPod(cloud: 'kubernetes', namespace: 'jenkins') {
-                    container('docker') {
+                   // container('docker') {
                         sh 'docker version'
                         sh 'docker pull nginx:latest'
                     }
@@ -19,7 +19,7 @@ pipeline {
                             sh 'aws --version'
                            // sh 'aws s3 ls'
                         // }
-                    }
+                    } //
                     container('kubectl') {
                         // withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                             sh 'kubectl version --client'
