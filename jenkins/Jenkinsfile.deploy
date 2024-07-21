@@ -27,7 +27,6 @@ pipeline {
                              sh 'which kubectl || echo "kubectl not found"'
                              sh '''
                                 set -x
-                                whoami
                                 kubectl version --client
                                 env | sort
                              '''
