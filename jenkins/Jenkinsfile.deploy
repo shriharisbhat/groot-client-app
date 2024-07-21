@@ -15,16 +15,16 @@ pipeline {
                         sh 'docker pull nginx:latest'
                     }
                     container('aws-cli') {
-                        withCredentials([file(credentialsId: 'aws-credentials', variable: 'AWS_SHARED_CREDENTIALS_FILE')]) {
+                        // withCredentials([file(credentialsId: 'aws-credentials', variable: 'AWS_SHARED_CREDENTIALS_FILE')]) {
                             sh 'aws --version'
                             sh 'aws s3 ls'
-                        }
+                        // }
                     }
                     container('kubectl') {
-                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                        // withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                             sh 'kubectl version --client'
                             sh 'kubectl get pods'
-                        }
+                        // }
                     }
                 }
             }
