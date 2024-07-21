@@ -22,8 +22,10 @@ pipeline {
                     // } 
                     container('kubectl') {
                         // withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                            sh 'kubectl version --client'
-                            sh 'kubectl get pods'
+                             sh 'echo $HOSTNAME'
+                             sh 'env | sort'
+                             sh 'which kubectl || echo "kubectl not found"'
+                        
                         // }
                     }
                 }
