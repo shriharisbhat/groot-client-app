@@ -20,19 +20,19 @@ pipeline {
                            // sh 'aws s3 ls'
                         // }
                     } 
-                    container('kubectl') {
-                        // withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                             sh 'echo $HOSTNAME'
-                             sh 'env | sort'
-                             sh 'which kubectl || echo "kubectl not found"'
-                             sh '''
-                                set -x
-                                kubectl version --client
-                                env | sort
-                             '''
+                    // container('kubectl') {
+                    //     // withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    //          sh 'echo $HOSTNAME'
+                    //          sh 'env | sort'
+                    //          sh 'which kubectl || echo "kubectl not found"'
+                    //          sh '''
+                    //             set -x
+                    //             kubectl version --client
+                    //             env | sort
+                    //          '''
                         
-                        // }
-                    }
+                    //     // }
+                    // }
                 }
             }
         }
