@@ -5,6 +5,7 @@ library identifier: 'jenkins-global-library@main',
            credentialsId: ''])
 
 pipeline {
+    agent none
     stages {
         stage('Multi-tool operations') {
             steps {
