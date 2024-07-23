@@ -11,8 +11,8 @@ pipeline {
             steps {
                 script {
                     def deploymentStrategy = { [
-                        in_parallel([
-                            auto('us1-test')
+                        strategies.in_parallel([
+                            strategies.auto('us1-test')
                         ])
                     ]}
                     
