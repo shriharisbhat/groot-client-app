@@ -18,6 +18,6 @@ deployApp([
     imageVersionedTag: "4.0.1",
     strategy: deploymentStrategy,
     doDeploy: { config -> 
-        deployWebApp(config) // Reference to custom deployment logic
+        deployNodeApp(config) // Reference to custom deployment logic
     }
 ])
