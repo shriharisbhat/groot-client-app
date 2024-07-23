@@ -11,6 +11,7 @@ def deploymentStrategy = {[
     ])
 ]}
 
+@NonCPS 
 deployApp([
     applicationName: "groot-web-app",
     verifyDeploymentRollout: true,
