@@ -5,9 +5,9 @@ library identifier: 'jenkins-global-library@main',
            credentialsId: ''])
 
 def deploymentStrategy = {[
-    strategies.sequence([
-        strategies.autoApproval('us1-prod'),
-        strategies.autoApproval('us1-east')
+    customStrategies.sequence([
+        customStrategies.autoApproval('us1-prod'),
+        customStrategies.autoApproval('us1-east')
     ])
 ]}
 
