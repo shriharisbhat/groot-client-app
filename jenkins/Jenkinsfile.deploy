@@ -17,5 +17,7 @@ deployApp([
     deployTimeoutInMinutes: 20,
     imageVersionedTag: "4.0.1",
     strategy: deploymentStrategy,
-    doDeploy: deployWebApp
+    doDeploy: { config -> 
+        deployWebApp(config) // Reference to custom deployment logic
+    }
 ])
