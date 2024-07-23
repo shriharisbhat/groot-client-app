@@ -4,37 +4,16 @@ library identifier: 'jenkins-global-library@main',
            remote: 'https://github.com/shriharisbhat/jenkins-global-library.git',
            credentialsId: ''])
 
-pipeline {
-    agent none
-    stages {
-        stage('Multi-tool operations') {
-            steps {
-                multiToolPod(cloud: 'kubernetes', namespace: 'jenkins') {
-                    container('docker') {
-                        sh 'docker version'
-                        sh 'docker pull nginx:latest'
-                    }
-                    container('aws-cli') {
-                        // withCredentials([file(credentialsId: 'aws-credentials', variable: 'AWS_SHARED_CREDENTIALS_FILE')]) {
-                            sh 'aws --version'
-                           // sh 'aws s3 ls'
-                        // }
-                    } 
-                    // container('kubectl') {
-                    //     // withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    //          sh 'echo $HOSTNAME'
-                    //          sh 'env | sort'
-                    //          sh 'which kubectl || echo "kubectl not found"'
-                    //          sh '''
-                    //             set -x
-                    //             kubectl version --client
-                    //             env | sort
-                    //          '''
-                        
-                    //     // }
-                    // }
-                }
-            }
-        }
-    }
-}
+def deploymentStrategy = {[
+    in_parallel([
+        auto('us1-prod')
+    ])
+]}
+
+deployApp([
+    applicationName: "groot-web-app",
+    verifyDeploymentRollout: true,
+    deployTimeoutInMinutes: 20,
+    imageVersionedTag: "4.0.1",
+    strategy: deploymentStrategy,
+])
