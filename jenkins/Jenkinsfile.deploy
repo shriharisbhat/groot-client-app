@@ -4,27 +4,16 @@ library identifier: 'jenkins-global-library@main',
            remote: 'https://github.com/shriharisbhat/jenkins-global-library.git',
            credentialsId: ''])
 
-pipeline {
-    agent none 
-    stages {
-        stage('Deploy Sonic App') {
-            steps {
-                script {
-                    def deploymentStrategy = { [
-                        in_parallel([
-                            auto('us1-test')
-                        ])
-                    ]}
-                    
-                    deployApp([
-                        applicationName: "groot-web-app",
-                        verifyDeploymentRollout: true,
-                        deployTimeoutInMinutes: 20,
-                        imageVersionedTag: "4.0.1",
-                        strategy: deploymentStrategy,
-                    ])
-                }
-            }
-        }
-    }
-}
+def deploymentStrategy = {[
+    strategies.in_parallel([
+        strategies.auto('us1-prod')
+    ])
+]}
+
+deployApp([
+    applicationName: "groot-web-app",
+    verifyDeploymentRollout: true,
+    deployTimeoutInMinutes: 20,
+    imageVersionedTag: "4.0.1",
+    strategy: deploymentStrategy,
+])
