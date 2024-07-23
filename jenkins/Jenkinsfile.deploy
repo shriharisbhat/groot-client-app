@@ -6,7 +6,8 @@ library identifier: 'jenkins-global-library@main',
 
 def deploymentStrategy = {[
     strategies.in_parallel([
-        strategies.auto('us1-prod')
+        strategies.auto('us1-prod'),
+        strategies.auto('us1-east')
     ])
 ]}
 
