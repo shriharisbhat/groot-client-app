@@ -16,7 +16,7 @@ pipeline {
                         ])
                     ]}
                     
-                    deploySonicApp([
+                    deployApp([
                         applicationName: "groot-web-app",
                         verifyDeploymentRollout: true,
                         deployTimeoutInMinutes: 20,
