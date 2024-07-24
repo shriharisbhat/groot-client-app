@@ -5,10 +5,10 @@ library identifier: 'jenkins-global-library@main',
            credentialsId: ''])
 
 def depStrategy = {[
-    deploymentStrategy.in_parallel([
-        deploymentStrategy.sequence([approvalStrategy.autoApproval('us1-test'),approvalStrategy.autoApproval('us1-prod')]),
-        deploymentStrategy.sequence([approvalStrategy.autoApproval('us1-east', 30),approvalStrategy.autoApproval('us1-west', 30)]),
-    ])
+    deploymentStrategy.in_parallel(
+        deploymentStrategy.sequence(approvalStrategy.autoApproval('us1-test'),approvalStrategy.autoApproval('us1-prod')),
+        deploymentStrategy.sequence(approvalStrategy.autoApproval('us1-east', 30),approvalStrategy.autoApproval('us1-west', 30)),
+    )
 ]}
 
 deployApplication([
