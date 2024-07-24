@@ -6,8 +6,8 @@ library identifier: 'jenkins-global-library@main',
 
 def depStrategy2 = {[
     deploymentStrategy.in_parallel([
-        approvalStrategy.autoApproval('us1-prod'),
-        approvalStrategy.autoApproval('us1-east')
+        approvalStrategy.autoApproval('us1-prod', 'deployNodeApp'),
+        approvalStrategy.autoApproval('us1-east', 'deployWebApp')
     ])
 ]}
 
@@ -17,5 +17,4 @@ deployApplication([
     deployTimeoutInMinutes: 20,
     imageVersionedTag: "4.0.1",
     strategy: depStrategy2,
-    doDeploy: "deployNodeApp"
 ])
