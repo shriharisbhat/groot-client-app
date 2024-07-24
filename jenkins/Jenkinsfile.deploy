@@ -11,11 +11,18 @@ library identifier: 'jenkins-global-library@main',
 //     ])
 // ]}
 
-def depStrategy = {[
+// def depStrategy = {[
+//     deploymentStrategy.in_parallel([
+//         [ approvalStrategy.autoApproval('us1-prod'), doDeploy: "deployNodeApp"],
+//         [task: approvalStrategy.autoApproval('us1-east', 30), doDeploy: "deployWebApp"]
+//     ])
+// ]}
+
+def deploymentStrategy = { [
     deploymentStrategy.in_parallel([
-        [task: approvalStrategy.autoApproval('us1-prod'), doDeploy: "deployNodeApp"],
-        [task: approvalStrategy.autoApproval('us1-east', 30), doDeploy: "deployWebApp"]
-    ])
+            approvalStrategy.autoApproval('us1-test') + [doDeploy: "deployNodeApp"],
+            approvalStrategy.autoApproval('us1-prod') + [doDeploy: "deployNodeApp"]
+    ]),
 ]}
 
 deployApplication([
