@@ -1,23 +1,36 @@
-library identifier: 'jenkins-global-library@main', 
-        retriever: modernSCM(
-          [$class: 'GitSCMSource',
-           remote: 'https://github.com/shriharisbhat/jenkins-global-library.git',
-           credentialsId: ''])
-
-def deploymentStrategy = {[
-    customStrategies.sequence([
-        customStrategies.autoApproval('us1-prod'),
-        customStrategies.autoApproval('us1-east')
+library identifier: 'jenkins-global-library@main',
+  retriever: modernSCM(
+    [$class: 'GitSCMSource',
+      remote: 'https://github.com/shriharisbhat/jenkins-global-library.git',
+      credentialsId: ''
     ])
-]}
 
-deployApp([
-    applicationName: "groot-web-app",
-    verifyDeploymentRollout: true,
-    deployTimeoutInMinutes: 20,
-    imageVersionedTag: "4.0.1",
-    strategy: deploymentStrategy,
-    doDeploy: { config -> 
-        deployNodeApp(config) // Reference to custom deployment logic
+pipeline {
+  agent none
+  stages {
+    stage('Deploy Sonic App') {
+      steps {
+        script {
+
+          def deploymentStrategy = {
+            [
+              customStrategies.sequence([
+                customStrategies.autoApproval('us1-prod'),
+                customStrategies.autoApproval('us1-east')
+              ])
+            ]
+          }
+
+          deployApp([
+            applicationName: "groot-web-app",
+            verifyDeploymentRollout: true,
+            deployTimeoutInMinutes: 20,
+            imageVersionedTag: "4.0.1",
+            strategy: deploymentStrategy,
+            doDeploy: "deployNodeApp"
+          ])
+        }
+      }
     }
-])
+  }
+}
