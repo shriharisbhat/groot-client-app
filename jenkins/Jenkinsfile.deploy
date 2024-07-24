@@ -4,12 +4,12 @@ library identifier: 'jenkins-global-library@main',
            remote: 'https://github.com/shriharisbhat/jenkins-global-library.git',
            credentialsId: ''])
 
-// def depStrategy = {[
-//     deploymentStrategy.sequence([
-//         approvalStrategy.autoApproval('us1-prod'),
-//         approvalStrategy.autoApproval('us1-east')
-//     ])
-// ]}
+def depStrategy = {[
+    deploymentStrategy.in_parallel([
+        approvalStrategy.autoApproval('us1-prod'),
+        approvalStrategy.autoApproval('us1-east')
+    ])
+]}
 
 // def depStrategy = {[
 //     deploymentStrategy.in_parallel([
@@ -18,12 +18,12 @@ library identifier: 'jenkins-global-library@main',
 //     ])
 // ]}
 
-def depStrategy = { [
-    deploymentStrategy.in_parallel([
-            [task: approvalStrategy.autoApproval('us1-test'), doDeploy: deployWebApp],
-            [task: approvalStrategy.autoApproval('us1-prod'), doDeploy: deployNodeApp]
-    ])
-]}
+// def depStrategy = { [
+//     deploymentStrategy.in_parallel([
+//             [task: approvalStrategy.autoApproval('us1-test'), doDeploy: deployWebApp],
+//             [task: approvalStrategy.autoApproval('us1-prod'), doDeploy: deployNodeApp]
+//     ])
+// ]}
 
 // def depStrategy = { [
 //     deploymentStrategy.sequence([
@@ -44,5 +44,5 @@ deployApplication([
     deployTimeoutInMinutes: 20,
     imageVersionedTag: "4.0.1",
     strategy: depStrategy,
-    // doDeploy: "deployNodeApp"
+    doDeploy: "deployNodeApp"
 ])
