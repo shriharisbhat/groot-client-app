@@ -22,6 +22,6 @@ deployApplication([
     verifyDeploymentRollout: true,
     deployTimeoutInMinutes: 20,
     imageVersionedTag: "4.0.1",
-    strategy: depStrategy3,
+    strategy: depStrategy4,
     doDeploy: "deployNodeApp"
 ])
