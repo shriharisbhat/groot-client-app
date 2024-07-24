@@ -26,7 +26,7 @@ library identifier: 'jenkins-global-library@main',
 // ]}
 
 def depStrategy = { [
-    deploymentStrategy.in_parallel([
+    deploymentStrategy.sequence([
         // deploymentStrategy.sequence([
             [task: approvalStrategy.autoApproval('us1-test'), doDeploy: "deployWebApp"],
             [task: approvalStrategy.autoApproval('us1-prod'), doDeploy: "deployNodeApp"]
