@@ -20,8 +20,8 @@ library identifier: 'jenkins-global-library@main',
 
 def depStrategy = { [
     deploymentStrategy.in_parallel([
-            approvalStrategy.autoApproval('us1-test'),
-            approvalStrategy.autoApproval('us1-prod')
+            [task: approvalStrategy.autoApproval('us1-test')],
+            [task: approvalStrategy.autoApproval('us1-prod')]
     ]),
 ]}
 
