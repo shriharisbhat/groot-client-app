@@ -27,10 +27,14 @@ library identifier: 'jenkins-global-library@main',
 
 def depStrategy = { [
     deploymentStrategy.sequence([
-        // deploymentStrategy.sequence([
+        deploymentStrategy.in_parallel([
             [task: approvalStrategy.autoApproval('us1-test'), doDeploy: "deployWebApp"],
             [task: approvalStrategy.autoApproval('us1-prod'), doDeploy: "deployNodeApp"]
-        // ])
+        ]),
+        deploymentStrategy.in_parallel([
+            [task: approvalStrategy.autoApproval('us1-east'), doDeploy: "deployWebApp"],
+            [task: approvalStrategy.autoApproval('us1-weast'), doDeploy: "deployNodeApp"]
+        ])
     ]),
 ]}
 
