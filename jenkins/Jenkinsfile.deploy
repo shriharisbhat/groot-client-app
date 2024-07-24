@@ -44,5 +44,5 @@ deployApplication([
     deployTimeoutInMinutes: 20,
     imageVersionedTag: "4.0.1",
     strategy: depStrategy,
-    doDeploy: "deployNodeApp"
+    // doDeploy: "deployNodeApp"
 ])
