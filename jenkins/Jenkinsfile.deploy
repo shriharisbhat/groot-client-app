@@ -4,31 +4,31 @@ library identifier: 'jenkins-global-library@main',
            remote: 'https://github.com/shriharisbhat/jenkins-global-library.git',
            credentialsId: ''])
 
-// def depStrategy2 = {[
-//     deploymentStrategy.in_parallel([
-//         approvalStrategy.autoApproval('us1-prod', 'deployNodeApp'),
-//         approvalStrategy.autoApproval('us1-east', 'deployWebApp')
-//     ])
-// ]}
-
-
-def depStrategy3 = {[
+def depStrategy = {[
     deploymentStrategy.in_parallel([
-        deploymentStrategy.sequence([
-            approvalStrategy.autoApproval('us1-prod', 'deployNodeApp'),
-            approvalStrategy.autoApproval('us1-test', 'deployWebApp')
-        ]),
-        deploymentStrategy.sequence([
-            approvalStrategy.autoApproval('us1-east', 'deployNodeApp'),
-            approvalStrategy.autoApproval('us1-west', 'deployWebApp')
-        ])
+        approvalStrategy.autoApproval('us1-prod', 'deployNodeApp'),
+        approvalStrategy.manualApproval('us1-east', 'deployWebApp')
     ])
 ]}
+
+
+// def depStrategy3 = {[
+//     deploymentStrategy.in_parallel([
+//         deploymentStrategy.sequence([
+//             approvalStrategy.autoApproval('us1-prod', 'deployNodeApp'),
+//             approvalStrategy.autoApproval('us1-test', 'deployWebApp')
+//         ]),
+//         deploymentStrategy.sequence([
+//             approvalStrategy.autoApproval('us1-east', 'deployNodeApp'),
+//             approvalStrategy.autoApproval('us1-west', 'deployWebApp')
+//         ])
+//     ])
+// ]}
 
 deployApplication([
     applicationName: "groot-web-app",
     verifyDeploymentRollout: true,
     deployTimeoutInMinutes: 20,
     imageVersionedTag: "4.0.1",
-    strategy: depStrategy3,
+    strategy: depStrategy,
 ])
