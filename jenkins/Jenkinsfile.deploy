@@ -7,11 +7,11 @@ library identifier: 'jenkins-global-library@main',
 def depStrategy = {[
     deploymentStrategy.in_parallel([
         approvalStrategy.autoApproval('us1-prod'),
-        approvalStrategy.manualApproval('us1-east')
+        approvalStrategy.manualApproval('us1-east', 30)
     ])
 ]}
 
-deployApp([
+deployApplication([
     applicationName: "groot-web-app",
     verifyDeploymentRollout: true,
     deployTimeoutInMinutes: 20,
