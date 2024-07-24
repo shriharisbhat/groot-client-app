@@ -18,7 +18,7 @@ def depStrategy = {[
     ])
 ]}
 
-deployApp([
+deployApplication([
     applicationName: "groot-web-app",
     verifyDeploymentRollout: true,
     deployTimeoutInMinutes: 20,
