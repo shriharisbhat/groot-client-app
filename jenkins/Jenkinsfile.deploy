@@ -11,13 +11,14 @@ library identifier: 'jenkins-global-library@main',
 //     ])
 // ]}
 
-def depStrategy4 = {[
-    deploymentStrategy.sequence([
-        deploymentStrategy.in_parallel([
+
+def depStrategy3 = {[
+    deploymentStrategy.in_parallel([
+        deploymentStrategy.sequence([
             approvalStrategy.autoApproval('us1-prod', 'deployNodeApp'),
             approvalStrategy.autoApproval('us1-test', 'deployWebApp')
         ]),
-        deploymentStrategy.in_parallel([
+        deploymentStrategy.sequence([
             approvalStrategy.autoApproval('us1-east', 'deployNodeApp'),
             approvalStrategy.autoApproval('us1-west', 'deployWebApp')
         ])
@@ -29,5 +30,5 @@ deployApplication([
     verifyDeploymentRollout: true,
     deployTimeoutInMinutes: 20,
     imageVersionedTag: "4.0.1",
-    strategy: depStrategy4,
+    strategy: depStrategy3,
 ])
